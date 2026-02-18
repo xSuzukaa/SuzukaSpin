@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Branching Wheelspin</title>
+  <style>
+    :root { --bg:#0b0f19; --card:#121a2b; --text:#e8eefc; --muted:#a9b6d3; }
+    * { box-sizing: border-box; }
+    body {
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 800px at 20% 10%, #1a2a55 0%, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+      display:flex; align-items:center; justify-content:center;
+      padding: 24px;
+    }
+    .wrap { width:min(980px, 100%); display:grid; gap:16px; grid-template-columns: 1.1fr .9fr; }
+    @media (max-width: 900px){ .wrap { grid-template-columns: 1fr; } }
+    .card {
+      background: color-mix(in oklab, var(--card) 85%, black 15%);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 16px 48px rgba(0,0,0,.35);
+    }
+    h1 { margin: 0 0 6px; font-size: 22px; }
+    .sub { color: var(--muted); font-size: 13px; margin-bottom: 12px; line-height: 1.4; }
+
+    .wheelBox { display:flex; gap:16px; align-items:center; justify-content:center; flex-wrap:wrap; }
+    canvas { width: min(520px, 100%); height: auto; max-width: 520px; aspect-ratio: 1 / 1; }
+    .pointer {
+      width: 0; height: 0;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-top: 24px solid #ffd24a;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.4));
+      transform: translateY(-8px);
+    }
+
+    .controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    button {
+      background: #2b67ff; color: white; border:0;
+      padding: 10px 14px; border-radius: 12px;
+      font-weight: 650; cursor: pointer;
+      box-shadow: 0 10px 20px rgba(43,103,255,.25);
+    }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    .ghost {
+      background: rgba(255,255,255,.07);
+      box-shadow: none;
+    }
+    .pill {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .row { display:flex; justify-content:space-between; gap:10px; align-items:center; flex-wrap:wrap; }
+    .big {
+      font-size: 18px;
+      font-weight: 750;
+      margin: 10px 0 6px;
+    }
+    .log {
+      margin-top: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      color: #cfe0ff;
+      white-space: pre-wrap;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 10px;
+      border-radius: 12px;
+      max-height: 260px;
+      overflow:auto;
+    }
+    .hint { color: var(--muted); font-size: 12px; margin-top: 8px; line-height:1.4; }
+    .badge {
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px; border-radius: 12px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .dot { width:10px; height:10px; border-radius:50%; background:#7cffb2; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="row">
+        <div>
+          <h1 id="wheelTitle">Wheel</h1>
+          <div class="sub" id="wheelDesc">Branching wheelspin (auto-loads the next wheel).</div>
+        </div>
+        <div class="badge">
+          <span class="dot" id="statusDot"></span>
+          <span class="pill" id="pathLabel">Path: start</span>
+        </div>
+      </div>
+
+      <div class="wheelBox" style="margin-top:10px;">
+        <div class="pointer" aria-hidden="true"></div>
+        <canvas id="wheel" width="800" height="800"></canvas>
+      </div>
+
+      <div class="controls" style="margin-top:12px;">
+        <button id="spinBtn">Spin</button>
+        <button id="resetBtn" class="ghost">Reset to Start</button>
+        <span class="pill" id="modePill">Mode: keep choices</span>
+      </div>
+      <div class="hint">
+        Tip: Edit the <b>WHEELS</b> object in the code to change options, weights, and which wheel comes next.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div class="big">Result</div>
+        <div class="pill" id="resultPill">—</div>
+      </div>
+      <div class="sub">
+        After a spin, this automatically loads the next wheel if the landed segment has a <b>next</b> value.
+      </div>
+      <div class="big" style="margin-top:10px;">History</div>
+      <div class="log" id="log"></div>
+      <div class="hint">
+        Optional features included:
+        <ul style="margin:8px 0 0 18px; color: var(--muted);">
+          <li><b>Weighted odds</b> (weight: number)</li>
+          <li><b>Remove landed option</b> per wheel (eliminate: true)</li>
+          <li><b>Branching</b> (next: "wheelId")</li>
+          <li><b>End nodes</b> (next: null / omitted)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<script>
+/**
+ * =========================
+ *  EDIT YOUR WHEELS HERE
+ * =========================
+ *
+ * Each wheel:
+ *  - title: displayed title
+ *  - eliminate: if true, removes landed slice from that wheel for the rest of the run
+ *  - slices: array of { label, weight?, next? }
+ *
+ * next: wheel id to load next (branch)
+ * If next is missing or null -> stop (end)
+ */
+const WHEELS = {
+  start: {
+    title: "Wheel A",
+    eliminate: false, // set true to remove landed choice
+    slices: [
+      { label: "Choice 1", weight: 1, next: "wheelB" },
+      { label: "Choice 2", weight: 1, next: "wheelC" },
+    ],
+  },
+
+  wheelB: {
+    title: "Wheel B",
+    eliminate: false,
+    slices: [
+      { label: "B1", weight: 1, next: "wheelD" },
+      { label: "B2", weight: 1, next: "wheelE" },
+      { label: "B3 (End)", weight: 1 }, // no next -> end
+    ],
+  },
+
+  wheelC: {
+    title: "Wheel C",
+    eliminate: false,
+    slices: [
+      { label: "C1", weight: 1, next: "wheelE" },
+      { label: "C2 (End)", weight: 1 },
+    ],
+  },
+
+  wheelD: {
+    title: "Wheel D",
+    eliminate: false,
+    slices: [
+      { label: "D1 (End)", weight: 1 },
+      { label: "D2 (End)", weight: 1 },
+    ],
+  },
+
+  wheelE: {
+    title: "Wheel E",
+    eliminate: false,
+    slices: [
+      { label: "E1 (End)", weight: 1 },
+      { label: "E2 (End)", weight: 1 },
+      { label: "Back to Start", weight: 1, next: "start" },
+    ],
+  },
+};
+
+// ====== Engine ======
+const canvas = document.getElementById("wheel");
+const ctx = canvas.getContext("2d");
+const spinBtn = document.getElementById("spinBtn");
+const resetBtn = document.getElementById("resetBtn");
+const wheelTitle = document.getElementById("wheelTitle");
+const wheelDesc = document.getElementById("wheelDesc");
+const resultPill = document.getElementById("resultPill");
+const logEl = document.getElementById("log");
+const pathLabel = document.getElementById("pathLabel");
+const statusDot = document.getElementById("statusDot");
+const modePill = document.getElementById("modePill");
+
+let currentWheelId = "start";
+let angle = 0;              // current rotation angle (radians)
+let spinning = false;
+let history = [];
+let eliminated = {};        // wheelId -> Set(index)
+
+function getWheel(id){ return WHEELS[id]; }
+
+function getActiveSlices(wheelId){
+  const wheel = getWheel(wheelId);
+  const killed = eliminated[wheelId] || new Set();
+  return wheel.slices
+    .map((s, i) => ({...s, _i:i}))
+    .filter(s => !killed.has(s._i) && (s.weight ?? 1) > 0);
+}
+
+function weightedPick(items){
+  const total = items.reduce((sum, s) => sum + (s.weight ?? 1), 0);
+  let r = Math.random() * total;
+  for (const s of items){
+    r -= (s.weight ?? 1);
+    if (r <= 0) return s;
+  }
+  return items[items.length - 1];
+}
+
+function drawWheel(){
+  const wheel = getWheel(currentWheelId);
+  const slices = getActiveSlices(currentWheelId);
+  const n = slices.length;
+
+  // UI labels
+  wheelTitle.textContent = wheel.title || currentWheelId;
+  wheelDesc.textContent = `Wheel ID: ${currentWheelId} • Slices: ${n}`;
+  modePill.textContent = `Mode: ${wheel.eliminate ? "eliminate" : "keep choices"}`;
+
+  // if wheel is empty, lock
+  spinBtn.disabled = spinning || n === 0;
+  statusDot.style.background = (n === 0) ? "#ff6b6b" : "#7cffb2";
+
+  // clear
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // background ring
+  const cx = canvas.width/2, cy = canvas.height/2;
+  const R = Math.min(cx, cy) - 16;
+
+  // draw slices
+  const sliceAngle = (Math.PI * 2) / Math.max(n, 1);
+
+  // subtle alternating fill without specifying exact colors per slice:
+  // We'll generate HSL from index but keep it consistent.
+  for (let i=0; i<n; i++){
+    const start = angle + i * sliceAngle;
+    const end = start + sliceAngle;
+
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, R, start, end);
+    ctx.closePath();
+
+    const hue = (i * (360 / Math.max(n,1))) % 360;
+    ctx.fillStyle = `hsl(${hue} 70% 45%)`;
+    ctx.fill();
+
+    ctx.strokeStyle = "rgba(255,255,255,.14)";
+    ctx.lineWidth = 4;
+    ctx.stroke();
+
+    // text
+    const mid = (start + end)/2;
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(mid);
+    ctx.textAlign = "right";
+    ctx.fillStyle = "rgba(255,255,255,.92)";
+    ctx.font = "700 26px system-ui, -apple-system, Segoe UI, Roboto, Arial";
+    const label = slices[i].label;
+    ctx.fillText(label, R - 18, 10);
+    ctx.restore();
+  }
+
+  // center cap
+  ctx.beginPath();
+  ctx.arc(cx, cy, 90, 0, Math.PI*2);
+  ctx.fillStyle = "rgba(0,0,0,.25)";
+  ctx.fill();
+  ctx.strokeStyle = "rgba(255,255,255,.14)";
+  ctx.lineWidth = 6;
+  ctx.stroke();
+
+  ctx.fillStyle = "rgba(255,255,255,.95)";
+  ctx.font = "800 26px system-ui, -apple-system, Segoe UI, Roboto, Arial";
+  ctx.textAlign = "center";
+  ctx.fillText("SPIN", cx, cy + 10);
+}
+
+function angleToIndex(angleRad, n){
+  // pointer is at 12 o'clock (up). Canvas angle 0 points to the right.
+  // Pointer angle is -90° (or 270°).
+  // We rotate wheel by `angle`, so we need where the pointer lands in wheel coords.
+  const pointer = -Math.PI/2;
+  let a = (pointer - angleRad) % (Math.PI*2);
+  if (a < 0) a += Math.PI*2;
+  const idx = Math.floor(a / (2*Math.PI / n));
+  return Math.min(n-1, Math.max(0, idx));
+}
+
+function logLine(line){
+  logEl.textContent = (line + "\n") + logEl.textContent;
+}
+
+function setPathLabel(){
+  const path = history.map(h => h.wheelTitle + "→" + h.label).join("  |  ");
+  pathLabel.textContent = "Path: " + (path || "start");
+}
+
+function resetAll(){
+  currentWheelId = "start";
+  angle = 0;
+  spinning = false;
+  history = [];
+  eliminated = {};
+  resultPill.textContent = "—";
+  logEl.textContent = "";
+  setPathLabel();
+  drawWheel();
+}
+
+async function spin(){
+  if (spinning) return;
+  const wheel = getWheel(currentWheelId);
+  const slices = getActiveSlices(currentWheelId);
+  const n = slices.length;
+  if (n === 0) return;
+
+  spinning = true;
+  spinBtn.disabled = true;
+
+  // Pick a slice by weight, then compute a target angle that lands on that slice.
+  const picked = weightedPick(slices);
+  const pickedIndex = slices.findIndex(s => s._i === picked._i);
+
+  const sliceAngle = (Math.PI * 2) / n;
+  // Center of the picked slice (in wheel coords) should align with pointer.
+  // pointer at -90°, so we want: angle + pickedIndex*sliceAngle + sliceAngle/2 == pointer (mod 2pi)
+  const pointer = -Math.PI/2;
+  let targetBase = pointer - (pickedIndex * sliceAngle + sliceAngle/2);
+
+  // Add extra full rotations + tiny random jitter for feel
+  const extraTurns = 6 + Math.floor(Math.random()*4); // 6-9
+  const jitter = (Math.random() - 0.5) * (sliceAngle * 0.15);
+
+  const startAngle = angle;
+  const endAngle = targetBase + extraTurns * Math.PI * 2 + jitter;
+
+  const durationMs = 2600 + Math.floor(Math.random()*700);
+  const start = performance.now();
+
+  function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+
+  await new Promise(resolve => {
+    function frame(now){
+      const t = Math.min(1, (now - start) / durationMs);
+      const e = easeOutCubic(t);
+      angle = startAngle + (endAngle - startAngle) * e;
+      drawWheel();
+      if (t < 1) requestAnimationFrame(frame);
+      else resolve();
+    }
+    requestAnimationFrame(frame);
+  });
+
+  // Determine actual landed slice (should match picked, but we compute from angle to be safe)
+  const landedSlices = getActiveSlices(currentWheelId);
+  const landedN = landedSlices.length;
+  const landedIdx = angleToIndex(angle, landedN);
+  const landed = landedSlices[landedIdx];
+
+  // record + UI
+  resultPill.textContent = landed.label;
+  const wheelTitleText = wheel.title || currentWheelId;
+  history.push({ wheelId: currentWheelId, wheelTitle: wheelTitleText, label: landed.label });
+  setPathLabel();
+  logLine(`[${wheelTitleText}] Landed: "${landed.label}"` + (landed.next ? ` → next: ${landed.next}` : ` → END`));
+
+  // eliminate if enabled (remove original index for future picks)
+  if (wheel.eliminate){
+    if (!eliminated[currentWheelId]) eliminated[currentWheelId] = new Set();
+    eliminated[currentWheelId].add(landed._i);
+  }
+
+  // branch
+  if (landed.next && WHEELS[landed.next]){
+    currentWheelId = landed.next;
+    // keep angle so it feels continuous, or reset angle if you want:
+    // angle = 0;
+    drawWheel();
+  } else {
+    // end
+    logLine(`(End reached)`);
+  }
+
+  spinning = false;
+  drawWheel();
+}
+
+// init
+spinBtn.addEventListener("click", spin);
+resetBtn.addEventListener("click", resetAll);
+resetAll();
+</script>
+</body>
+</html>
