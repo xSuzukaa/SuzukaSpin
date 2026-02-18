@@ -450,7 +450,9 @@ function getImageForSlice(slice){
   if (IMAGE_CACHE.has(src)) return IMAGE_CACHE.get(src);
 
   const img = new Image();
-  img.crossOrigin = "anonymous"; // best-effort; some hosts may ignore it
+  // NOTE: Do not set crossOrigin here; some hosts (including Fandom images) may not send CORS headers
+  // and setting crossOrigin="anonymous" can cause the image to fail to load entirely.
+  img.onerror = () => { img.__wheel_failed = true; };
   img.src = src;
   IMAGE_CACHE.set(src, img);
   return img;
