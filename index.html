@@ -155,30 +155,44 @@
  */
 const WHEELS = {
   start: {
-    title: "START",
+    title: "Build Type",
     eliminate: false, // set true to remove landed choice
     slices: [
-      { label: "NATO / Western", weight: 1, next: "wheelB" },
-      { label: "Warsaw Pact / Eastern Bloc", weight: 1, next: "wheelC" },
+      { label: "Realistic ", weight: 1, next: "WheelNATOvWARSAW" },
+      { label: "Goofy (If Possible)", weight: 1, next: "WheelNATOvWARSAW" },
     ],
   },
 
-  wheelB: {
+  WheelNATOvWARSAW: {
+    title: "NATO or WARSAW",
+    eliminate: false, // set true to remove landed choice
+    slices: [
+      { label: "NATO / Western", weight: 1, next: "WheelNATO" },
+      { label: "Warsaw Pact / Eastern Bloc", weight: 1, next: "WheelWARSAW" },
+    ],
+  },
+
+  WheelNATO: {
     title: "NATO Weapon Class",
     eliminate: false,
     slices: [
-      { label: "B1", weight: 1, next: "wheelD" },
-      { label: "B2", weight: 1, next: "wheelE" },
-      { label: "B3 (End)", weight: 1 }, // no next -> end
+      { label: "Rifles / Carbines / DMR", weight: 1, next: "WheelNATORifles" },
+      { label: "Bolt-Action", weight: 1, next: "WheelNATOBoltActions" },
+      { label: "Shotgun", weight: 1, next: "WheelNATOShotguns" },
+      { label: "SMG / PDW", weight: 1, next: "WheelNATOSMGs" },
+      { label: "Pistol", weight: 1, next: "WheelNATOPistols" },
     ],
   },
 
-  wheelC: {
+  WheelWARSAW: {
     title: "WARSAW Weapon Class",
     eliminate: false,
     slices: [
-      { label: "C1", weight: 1, next: "wheelE" },
-      { label: "C2 (End)", weight: 1 },
+      { label: "Rifles / Carbines / DMR", weight: 1, next: "WheelWARSAWRifles" },
+      { label: "Bolt-Action", weight: 1, next: "WheelWARSAWBoltActions" },
+      { label: "Shotgun", weight: 1, next: "WheelWARSAWShotguns" },
+      { label: "SMG / PDW", weight: 1, next: "WheelWARSAWSMGs" },
+      { label: "Pistol", weight: 1, next: "WheelWARSAWPistols" },
     ],
   },
 
@@ -429,4 +443,5 @@ resetAll();
 </script>
 </body>
 </html>
+
 
