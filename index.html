@@ -155,16 +155,16 @@
  */
 const WHEELS = {
   start: {
-    title: "Wheel A",
+    title: "START",
     eliminate: false, // set true to remove landed choice
     slices: [
-      { label: "Choice 1", weight: 1, next: "wheelB" },
-      { label: "Choice 2", weight: 1, next: "wheelC" },
+      { label: "NATO / Western", weight: 1, next: "wheelB" },
+      { label: "Warsaw Pact / Eastern Bloc", weight: 1, next: "wheelC" },
     ],
   },
 
   wheelB: {
-    title: "Wheel B",
+    title: "NATO Weapon Class",
     eliminate: false,
     slices: [
       { label: "B1", weight: 1, next: "wheelD" },
@@ -174,7 +174,7 @@ const WHEELS = {
   },
 
   wheelC: {
-    title: "Wheel C",
+    title: "WARSAW Weapon Class",
     eliminate: false,
     slices: [
       { label: "C1", weight: 1, next: "wheelE" },
@@ -429,3 +429,4 @@ resetAll();
 </script>
 </body>
 </html>
+
