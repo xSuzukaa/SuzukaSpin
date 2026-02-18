@@ -195,7 +195,7 @@ const WHEELS = {
     // Assault carbines (western / NATO-ish)
     { label: "ADAR 2-15"},
     { label: "RFB" },
-    { label: "TX-15 DML" },
+    { label: "TX-15 DML" , imageFile: "TX-15 View.PNG"},
 
     // Assault rifles (western)
     { label: "AUG A1" },
@@ -213,7 +213,7 @@ const WHEELS = {
     { label: "NL545 DI" },
     { label: "NL545 GP" },
     { label: "Radian Model 1" },
-    { label: "SA58" },
+    { label: "SA58" , imageFile: "DS Arms SA-58 OSW Para 7.62x51.png"},
     { label: "SCAR-H" },
     { label: "SCAR-L" },
     { label: "Velociraptor" },
@@ -223,8 +223,8 @@ const WHEELS = {
     { label: "G28" },
     { label: "M1A" },
     { label: "Mk-18" },
-    { label: "RSASS" },
-    { label: "SR-25" },
+    { label: "RSASS" , imageFile: "Rsass.png"},
+    { label: "SR-25" , imageFile: "SR-25 View.png"},
     { label: "TKPD" },
   ],
 },
@@ -261,15 +261,15 @@ WheelNATOSMGs: {
     { label: "MP7A1" },
     { label: "MP7A2" },
     { label: "MP9" },
-    { label: "MP9-N"},
+    { label: "MP9-N", imageFile: "B&T MP9-N 9x19 Submachinegun.png"},
     { label: "MPX" },
     { label: "P90" },
-    { label: "UMP 45" },
-    { label: "UZI" },
-    { label: "UZI PRO Pistol" },
-    { label: "UZI PRO SMG" },
-    { label: "Vector .45" },
-    { label: "Vector 9x19mm" },
+    { label: "UMP 45" , imageFile: "UMP45 View.png"},
+    { label: "UZI" , imageFile: "UZI Image.png"},
+    { label: "UZI PRO Pistol" , imageFile: "UZIPROPistol image.png"},
+    { label: "UZI PRO SMG" , imageFile: "UZIPROSMG image.png"},
+    { label: "Vector .45" , imageFile: "Vector45 fir unloaded view.png"},
+    { label: "Vector 9x19mm" , imageFile: "Vector 9x19 View.png"},
   ],
 },
 
@@ -291,7 +291,7 @@ WheelNATOPistols: {
     { label: "M1911A1" },
     { label: "M45A1" },
     { label: "M9A3" },
-    { label: "P226R" },
+    { label: "P226R" , imageFile: "P226.png"},
     { label: "USP .45" },
 
     // Revolvers (from Revolvers section)
@@ -323,16 +323,16 @@ WheelWARSAWRifles: {
     // Assault carbines (eastern)
     { label: "9A-91" },
     { label: "AS VAL MOD.4" },
-    { label: "AVT-40" },
-    { label: "OP-SKS" },
-    { label: "SAG AK" },
+    { label: "AVT-40" , imageFile: "AVT-40 STD Image.png"},
+    { label: "OP-SKS" , imageFile: "Opsks.png"},
+    { label: "SAG AK" , imageFile: "SAG.545.png"},
     { label: "SAG AK Short" },
-    { label: "SKS" },
-    { label: "SR-3M" },
+    { label: "SKS" , imageFile: "Sks.png"},
+    { label: "SR-3M" , imageFile: "SR-3M Image.png"},
     { label: "SVT-40" },
     { label: "VPO-101" },
-    { label: "VPO-136" },
-    { label: "VPO-209" },
+    { label: "VPO-136" , imageFile: "Vpo136.png"},
+    { label: "VPO-209" , imageFile: "Vpo209.png"},
     { label: "VSK-94" },
 
     // Assault rifles (eastern)
@@ -360,8 +360,8 @@ WheelWARSAWRifles: {
     { label: "RD-704" },
 
     // DMR-ish / marksman from list (eastern)
-    { label: "SVDS" },
-    { label: "VSS Vintorez" },
+    { label: "SVDS" , imageFile: "SVD-S.png"},
+    { label: "VSS Vintorez" , imageFile: "Vss.png"},
   ],
 },
 
@@ -372,9 +372,9 @@ WheelWARSAWBoltActions: {
     { label: "DVL-10" },
     { label: "Mosin Infantry" },
     { label: "Mosin Sniper" },
-    { label: "SV-98" },
+    { label: "SV-98" , imageFile: "Sv98.png"},
     { label: "T-5000M" },
-    { label: "VPO-215" },
+    { label: "VPO-215" , imageFile: "VPO-215 View.png"},
   ],
 },
 
@@ -385,13 +385,13 @@ WheelWARSAWShotguns: {
     { label: "KS-23M" },
     { label: "MP-18" },
     { label: "MP-43-1C" },
-    { label: "MP-133" },
+    { label: "MP-133" , imageFile: "Mr133.png"},
     { label: "MP-153" },
     { label: "MP-155" },
     { label: "MTs-255-12" },
-    { label: "Saiga-12K" },
+    { label: "Saiga-12K" , imageFile: "Saiga12.png"},
     { label: "Saiga-12K FA" },
-    { label: "TOZ-106" },
+    { label: "TOZ-106" , imageFile: "Toz.png"},
 
     // Secondary shotgun entry (explicitly listed)
     { label: "MP-43 sawed-off" },
@@ -402,14 +402,14 @@ WheelWARSAWSMGs: {
   title: "WARSAW — SMG / PDW",
   eliminate: false,
   slices: [
-    { label: "PP-19-01" },
+    { label: "PP-19-01" , imageFile: "Pp19.png"},
     { label: "PP-9 Klin" },
     { label: "PP-91 Kedr" },
     { label: "PP-91-01 Kedr-B" },
-    { label: "PPSh-41" },
-    { label: "Saiga-9" },
+    { label: "PPSh-41" , imageFile: "PPSH-41 View.png"},
+    { label: "Saiga-9" , imageFile: "Saiga9.png"},
     { label: "SR-2M" },
-    { label: "STM-9" },
+    { label: "STM-9" , imageFile: "STM-9 Base View.png"},
   ],
 },
 
@@ -419,21 +419,52 @@ WheelWARSAWPistols: {
   slices: [
     // Pistols
     { label: "APB" },
-    { label: "APS" },
+    { label: "APS" , imageFile: "Stechkin Automatic Pistol 9x18PM.png"},
     { label: "MP-443 Grach" },
-    { label: "PB pistol" },
-    { label: "PL-15" },
+    { label: "PB pistol" , imageFile: "Pb.png"},
+    { label: "PL-15" , imageFile: "PL-15image.png"},
     { label: "PM (t) pistol" },
     { label: "PM pistol" },
-    { label: "SR-1MP Gyurza" },
-    { label: "TT-33" },
-    { label: "TT-33 (Golden)" },
+    { label: "SR-1MP Gyurza" , imageFile: "Sr1mp.png"},
+    { label: "TT-33" , imageFile: "Tt.png"},
+    { label: "TT-33 (Golden)" , imageFile: "TT Pistol 7.62x25 TT gold.png"},
 
     // Revolver
     { label: "RSh-12" },
   ],
 },
 };
+
+// ====== Image helpers (Fandom) ======
+function fandomFileUrl(fileName){
+  // Uses MediaWiki Special:FilePath redirect so you don't need the long static.wikia hash URL
+  return "https://escapefromtarkov.fandom.com/wiki/Special:FilePath/" + encodeURIComponent(fileName);
+}
+
+const IMAGE_CACHE = new Map();
+
+function getImageForSlice(slice){
+  const src = slice.image ? slice.image : (slice.imageFile ? fandomFileUrl(slice.imageFile) : null);
+  if (!src) return null;
+
+  if (IMAGE_CACHE.has(src)) return IMAGE_CACHE.get(src);
+
+  const img = new Image();
+  img.crossOrigin = "anonymous"; // best-effort; some hosts may ignore it
+  img.src = src;
+  IMAGE_CACHE.set(src, img);
+  return img;
+}
+
+function preloadWheelImages(){
+  for (const wheelId of Object.keys(WHEELS)){
+    const wheel = WHEELS[wheelId];
+    for (const s of (wheel.slices || [])){
+      if (s.image || s.imageFile) getImageForSlice(s);
+    }
+  }
+}
+
 
 // ====== Engine ======
 const canvas = document.getElementById("wheel");
@@ -516,17 +547,41 @@ function drawWheel(){
     ctx.strokeStyle = "rgba(255,255,255,.14)";
     ctx.lineWidth = 4;
     ctx.stroke();
-
-    // text
+    // image (if present) + label
     const mid = (start + end)/2;
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(mid);
-    ctx.textAlign = "right";
-    ctx.fillStyle = "rgba(255,255,255,.92)";
-    ctx.font = "700 26px system-ui, -apple-system, Segoe UI, Roboto, Arial";
-    const label = slices[i].label;
-    ctx.fillText(label, R - 18, 10);
+
+    const slice = slices[i];
+    const label = slice.label ?? "";
+
+    const img = getImageForSlice(slice);
+    if (img && img.complete && img.naturalWidth > 0){
+      const size = 86; // icon size
+      const x = R - size - 18;
+      const y = -size/2;
+
+      ctx.drawImage(img, x, y, size, size);
+
+      // small label under the icon
+      ctx.textAlign = "right";
+      ctx.fillStyle = "rgba(255,255,255,.92)";
+      ctx.font = "700 18px system-ui, -apple-system, Segoe UI, Roboto, Arial";
+      ctx.fillText(label, R - 18, size/2 + 22);
+    } else {
+      // fallback label while image loads or if missing
+      ctx.textAlign = "right";
+      ctx.fillStyle = "rgba(255,255,255,.92)";
+      ctx.font = "700 24px system-ui, -apple-system, Segoe UI, Roboto, Arial";
+      ctx.fillText(label, R - 18, 10);
+
+      if (img && !img.__wheel_onload_bound){
+        img.__wheel_onload_bound = true;
+        img.onload = () => drawWheel();
+      }
+    }
+
     ctx.restore();
   }
 
@@ -658,6 +713,7 @@ async function spin(){
 // init
 spinBtn.addEventListener("click", spin);
 resetBtn.addEventListener("click", resetAll);
+preloadWheelImages();
 resetAll();
 </script>
 </body>
