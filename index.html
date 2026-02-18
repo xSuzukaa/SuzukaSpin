@@ -172,6 +172,10 @@ const WHEELS = {
     ],
   },
 
+// ===========================
+// NATO WEAPON WHEELS
+// ===========================
+  
   WheelNATO: {
     title: "NATO Weapon Class",
     eliminate: false,
@@ -185,29 +189,120 @@ const WHEELS = {
   },
 
   WheelNATORifles: {
-  title: "NATO Rifles / Carbines / DMR",
+  title: "NATO — Rifles / Carbines / DMR",
   eliminate: false,
   slices: [
-    { label: "M4A1" },
+    // Assault carbines (western / NATO-ish)
+    { label: "ADAR 2-15" },
+    { label: "RFB" },
     { label: "TX-15 DML" },
-    { label: "MK47 Mutant" },
-    { label: "SR-25" },
-    { label: "RSASS" },
-    { label: "R11 RSASS" },
-    { label: "SA-58 (FAL)" },
-    { label: "M1A" },
-    { label: "HK416A5" },
-    { label: "SCAR-L" },
-    { label: "SCAR-H" },
-    { label: "G28" },
-    { label: "MDR 5.56" },
-    { label: "MDR 7.62" },
-    { label: "MCX .300 BLK" },
+
+    // Assault rifles (western)
+    { label: "AUG A1" },
     { label: "AUG A3" },
-    { label: "DT MDR" },
+    { label: "DT MDR 5.56x45" },
+    { label: "DT MDR 7.62x51" },
+    { label: "G36" },
+    { label: "HK 416A5" },
+    { label: "M16A1" },
+    { label: "M16A2" },
+    { label: "M4A1" },
+    { label: "MCX" },
+    { label: "MCX-SPEAR" },
+    { label: "Mk47" },
+    { label: "NL545 DI" },
+    { label: "NL545 GP" },
+    { label: "Radian Model 1" },
+    { label: "SA58" },
+    { label: "SCAR-H" },
+    { label: "SCAR-L" },
+    { label: "Velociraptor" },
+
+    // DMRs (western)
+    { label: "AK-50" },
+    { label: "G28" },
+    { label: "M1A" },
+    { label: "Mk-18" },
+    { label: "RSASS" },
+    { label: "SR-25" },
+    { label: "TKPD" },
   ],
 },
 
+WheelNATOBoltActions: {
+  title: "NATO — Bolt-Action / Precision",
+  eliminate: false,
+  slices: [
+    { label: "AXMC" },
+    { label: "M700" },
+    { label: "Marlin MXLR" },
+    { label: "TRG M10" },
+  ],
+},
+
+WheelNATOShotguns: {
+  title: "NATO — Shotguns",
+  eliminate: false,
+  slices: [
+    { label: "AA-12 Gen 1" },
+    { label: "AA-12 Gen 2" },
+    { label: "M3 Super 90" },
+    { label: "M590A1" },
+    { label: "M870" },
+  ],
+},
+
+WheelNATOSMGs: {
+  title: "NATO — SMG / PDW",
+  eliminate: false,
+  slices: [
+    { label: "MP5" },
+    { label: "MP5K-N" },
+    { label: "MP7A1" },
+    { label: "MP7A2" },
+    { label: "MP9" },
+    { label: "MP9-N" },
+    { label: "MPX" },
+    { label: "P90" },
+    { label: "UMP 45" },
+    { label: "UZI" },
+    { label: "UZI PRO Pistol" },
+    { label: "UZI PRO SMG" },
+    { label: "Vector .45" },
+    { label: "Vector 9x19mm" },
+  ],
+},
+
+WheelNATOPistols: {
+  title: "NATO — Pistols (incl. revolvers)",
+  eliminate: false,
+  slices: [
+    // Pistols
+    { label: "Blicky" },
+    { label: "Desert Eagle L5 .357" },
+    { label: "Desert Eagle L5 .50 AE" },
+    { label: "Desert Eagle L6 .50 AE" },
+    { label: "Desert Eagle L6 .50 AE (WTS)" },
+    { label: "Desert Eagle Mk XIX .50 AE" },
+    { label: "FN 5-7" },
+    { label: "Glock 17" },
+    { label: "Glock 18C" },
+    { label: "Glock 19X" },
+    { label: "M1911A1" },
+    { label: "M45A1" },
+    { label: "M9A3" },
+    { label: "P226R" },
+    { label: "USP .45" },
+
+    // Revolvers (from Revolvers section)
+    { label: "CR 50DS" },
+    { label: "CR 200DS" },
+  ],
+},
+// ===========================
+// WARSAW WEAPON WHEELS
+// ===========================
+  
   WheelWARSAW: {
     title: "WARSAW Weapon Class",
     eliminate: false,
@@ -220,24 +315,122 @@ const WHEELS = {
     ],
   },
 
-  wheelD: {
-    title: "Wheel D",
-    eliminate: false,
-    slices: [
-      { label: "D1 (End)", weight: 1 },
-      { label: "D2 (End)", weight: 1 },
-    ],
-  },
+WheelWARSAWRifles: {
+  title: "WARSAW — Rifles / Carbines / DMR",
+  eliminate: false,
+  slices: [
+    // Assault carbines (eastern)
+    { label: "9A-91" },
+    { label: "AS VAL MOD.4" },
+    { label: "AVT-40" },
+    { label: "OP-SKS" },
+    { label: "SAG AK" },
+    { label: "SAG AK Short" },
+    { label: "SKS" },
+    { label: "SR-3M" },
+    { label: "SVT-40" },
+    { label: "VPO-101" },
+    { label: "VPO-136" },
+    { label: "VPO-209" },
+    { label: "VSK-94" },
 
-  wheelE: {
-    title: "Wheel E",
-    eliminate: false,
-    slices: [
-      { label: "E1 (End)", weight: 1 },
-      { label: "E2 (End)", weight: 1 },
-      { label: "Back to Start", weight: 1, next: "start" },
-    ],
-  },
+    // Assault rifles (eastern)
+    { label: "AK-101" },
+    { label: "AK-102" },
+    { label: "AK-103" },
+    { label: "AK-104" },
+    { label: "AK-105" },
+    { label: "AK-12" },
+    { label: "AK-74" },
+    { label: "AK-74M" },
+    { label: "AK-74N" },
+    { label: "AK-308" },
+    { label: "AKM" },
+    { label: "AKMN" },
+    { label: "AKMS" },
+    { label: "AKMSN" },
+    { label: "AKS-74" },
+    { label: "AKS-74N" },
+    { label: "AKS-74U" },
+    { label: "AKS-74UB" },
+    { label: "AKS-74UN" },
+    { label: "AS VAL" },
+    { label: "ASh-12" },
+    { label: "RD-704" },
+
+    // DMR-ish / marksman from list (eastern)
+    { label: "SVDS" },
+    { label: "VSS Vintorez" },
+  ],
+},
+
+WheelWARSAWBoltActions: {
+  title: "WARSAW — Bolt-Action / Precision",
+  eliminate: false,
+  slices: [
+    { label: "DVL-10" },
+    { label: "Mosin Infantry" },
+    { label: "Mosin Sniper" },
+    { label: "SV-98" },
+    { label: "T-5000M" },
+    { label: "VPO-215" },
+  ],
+},
+
+WheelWARSAWShotguns: {
+  title: "WARSAW — Shotguns (incl. MP-43 sawed-off)",
+  eliminate: false,
+  slices: [
+    { label: "KS-23M" },
+    { label: "MP-18" },
+    { label: "MP-43-1C" },
+    { label: "MP-133" },
+    { label: "MP-153" },
+    { label: "MP-155" },
+    { label: "MTs-255-12" },
+    { label: "Saiga-12K" },
+    { label: "Saiga-12K FA" },
+    { label: "TOZ-106" },
+
+    // Secondary shotgun entry (explicitly listed)
+    { label: "MP-43 sawed-off" },
+  ],
+},
+
+WheelWARSAWSMGs: {
+  title: "WARSAW — SMG / PDW",
+  eliminate: false,
+  slices: [
+    { label: "PP-19-01" },
+    { label: "PP-9 Klin" },
+    { label: "PP-91 Kedr" },
+    { label: "PP-91-01 Kedr-B" },
+    { label: "PPSh-41" },
+    { label: "Saiga-9" },
+    { label: "SR-2M" },
+    { label: "STM-9" },
+  ],
+},
+
+WheelWARSAWPistols: {
+  title: "WARSAW — Pistols (incl. revolvers)",
+  eliminate: false,
+  slices: [
+    // Pistols
+    { label: "APB" },
+    { label: "APS" },
+    { label: "MP-443 Grach" },
+    { label: "PB pistol" },
+    { label: "PL-15" },
+    { label: "PM (t) pistol" },
+    { label: "PM pistol" },
+    { label: "SR-1MP Gyurza" },
+    { label: "TT-33" },
+    { label: "TT-33 (Golden)" },
+
+    // Revolver
+    { label: "RSh-12" },
+  ],
 };
 
 // ====== Engine ======
@@ -403,13 +596,13 @@ async function spin(){
   let targetBase = pointer - (pickedIndex * sliceAngle + sliceAngle/2);
 
   // Add extra full rotations + tiny random jitter for feel
-  const extraTurns = 6 + Math.floor(Math.random()*4); // 6-9
+  const extraTurns = 10 + Math.floor(Math.random()*6);
   const jitter = (Math.random() - 0.5) * (sliceAngle * 0.15);
 
   const startAngle = angle;
   const endAngle = targetBase + extraTurns * Math.PI * 2 + jitter;
 
-  const durationMs = 2600 + Math.floor(Math.random()*700);
+  const durationMs = 5000 + Math.floor(Math.random()*1500);
   const start = performance.now();
 
   function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
@@ -467,6 +660,7 @@ resetAll();
 </script>
 </body>
 </html>
+
 
 
 
